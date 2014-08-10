@@ -29,6 +29,8 @@ const (
 	scopeParameter        = "scope"
 	authAction            = "oauth/authorize"
 	codeParameter         = "code"
+	secureParameter       = "secure"
+	secureValue           = "1"
 	usersGetAction        = "users.get"
 	uidsParameter         = "uids"
 )
@@ -154,6 +156,7 @@ func (client *Client) GetUser(uid string) (user User, err error) {
 	q.Del(redirectParameter)
 	q.Add(methodParameter, usersGetAction)
 	q.Add(uidsParameter, fmt.Sprint(uid))
+	q.Add(secureParameter, secureValue)
 	q.Add(sigParameter, client.signServer(q))
 
 	u.RawQuery = q.Encode()
